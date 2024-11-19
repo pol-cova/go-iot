@@ -1,0 +1,32 @@
+package views
+
+templ Dashboard() {
+    @Layout("Mini Cultivador Dashboard") {
+        <div class="min-h-screen">
+            <h1 class="text-3xl font-bold mb-8 text-gray-800">Mini Cultivador Monitor 🌱</h1>
+
+            <div
+                id="sensor-data"
+                class="relative"
+                hx-get="/api/v1/latest-data"
+                hx-trigger="load, every 30s"
+                hx-swap="innerHTML"
+                hx-indicator="#spinner">
+
+                <div class="text-center text-gray-600">
+                    Cargando datos del sensor...
+                </div>
+
+                <div id="spinner" class="htmx-indicator">
+                    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 text-sm text-gray-500 text-center">
+                Los datos se actualizan automáticamente cada 30 segundos
+            </div>
+        </div>
+    }
+}

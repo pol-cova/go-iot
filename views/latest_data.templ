@@ -1,0 +1,42 @@
+package views
+
+import (
+"fmt"
+"github.com/pol-cova/terrabyte/internal/models"
+)
+
+templ LatestData(data models.SensorData) {
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6 border-l-4 border-green-500">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Últimos Datos del Mini Cultivador 🌱</h2>
+        <p class="text-gray-700"><strong>MAC del dispositivo:</strong> <span class="font-medium">{data.DeviceMAC}</span></p>
+        <p class="text-gray-700"><strong>Fecha y hora:</strong> <span class="font-medium">{data.Timestamp.Format("2006-01-02 15:04:05")}</span></p>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2 text-gray-800">💧 Datos de Agua</h3>
+        <p class="text-gray-700"><strong>Nivel de agua (Raw):</strong> <span class="font-medium">{fmt.Sprint(data.WaterLevelRaw)}</span></p>
+        <p class="text-gray-700"><strong>Nivel de agua (%):</strong> <span class="font-medium">{fmt.Sprintf("%.1f", data.WaterLevelPercent)}%</span></p>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2 text-gray-800">🌿 Datos del Suelo</h3>
+        <p class="text-gray-700"><strong>Humedad del suelo (Raw):</strong> <span class="font-medium">{fmt.Sprint(data.SoilMoistureRaw)}</span></p>
+        <p class="text-gray-700"><strong>Humedad del suelo (%):</strong> <span class="font-medium">{fmt.Sprintf("%.1f", data.SoilMoisturePercent)}%</span></p>
+        <p class="text-gray-700"><strong>Suelo seco:</strong> <span class="font-medium">
+            if data.SoilDry {
+                <span>🌵 Sí 🌵</span>
+            } else {
+                <span>🌱 No 🌱</span>
+            }
+        </span></p>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2 text-gray-800">🌡️ Datos Ambientales</h3>
+        <p class="text-gray-700"><strong>Temperatura ambiente:</strong> <span class="font-medium">{fmt.Sprintf("%.1f", data.AmbientTemperature)}°C</span></p>
+        <p class="text-gray-700"><strong>Humedad relativa:</strong> <span class="font-medium">{fmt.Sprintf("%.1f", data.RelativeHumidity)}%</span></p>
+        <p class="text-gray-700"><strong>Índice de calor:</strong> <span class="font-medium">{fmt.Sprintf("%.1f", data.HeatIndex)}°C</span></p>
+
+        <h3 class="text-xl font-semibold mt-6 mb-2 text-gray-800">🌬️ Presión y Altitud</h3>
+        <p class="text-gray-700"><strong>Presión atmosférica:</strong> <span class="font-medium">{fmt.Sprintf("%.2f", data.AtmosphericPressure)} Pa</span></p>
+        <p class="text-gray-700"><strong>Presión (mmHg):</strong> <span class="font-medium">{fmt.Sprintf("%.2f", data.PressureMmHg)} mmHg</span></p>
+        <p class="text-gray-700"><strong>Altitud:</strong> <span class="font-medium">{fmt.Sprintf("%.2f", data.Altitude)} m</span></p>
+        <p class="text-gray-700"><strong>Temperatura BMP:</strong> <span class="font-medium">{fmt.Sprintf("%.1f", data.BmpTemperature)}°C</span></p>
+        <p class="text-gray-700"><strong>Presión a nivel del mar:</strong> <span class="font-medium">{fmt.Sprintf("%.2f", data.SeaLevelPressure)} Pa</span></p>
+        <p class="text-gray-700"><strong>Altitud real:</strong> <span class="font-medium">{fmt.Sprintf("%.2f", data.RealAltitude)} m</span></p>
+    </div>
+}
